@@ -39,6 +39,10 @@ public class FirePaaRadEnv {
         return true;
     }
 
+    public Player getCurrentPlayer() {
+        return this.currentPlayer;
+    }
+
     public boolean checkHorisontal() {
         for (int row = 0; row < 6; row++) {
             int red = 0;
@@ -122,16 +126,16 @@ public class FirePaaRadEnv {
     }
 
     public boolean putPiece(int row, int column) {
-        try {
-            if (isLegalMove(row, column)) {
+        // try {
+        //     if (isLegalMove(row, column)) {
                 this.board[row][column] = this.currentPlayer.getPiece();
-            } else {
-                throw new IllegalArgumentException();
-            }
-        } catch (IllegalArgumentException e) {
-            System.out.println("Can't make that move: " + e.getMessage());
-            return false;
-        }
+        //     } else {
+        //         throw new IllegalArgumentException();
+        //     }
+        // } catch (IllegalArgumentException e) {
+        //     System.out.println("Can't make that move: " + e.getMessage());
+        //     return false;
+        // }
         if (isWinner()) {
             System.out.printf("%s won", p1);
             return true;

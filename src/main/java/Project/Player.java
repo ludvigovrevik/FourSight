@@ -6,9 +6,9 @@ public class Player implements FirePaaRadInterface{
 
     public Player(int i, String name) {
         if (i == 1) {
-            piece = new Piece("Red");    
+            piece = new Piece("R");    
         } else if (i == 2) {
-            piece = new Piece("Yel");   
+            piece = new Piece("Y");   
         }
         this.name = name;
     }
