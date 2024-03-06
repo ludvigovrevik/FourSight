@@ -14,17 +14,8 @@ public class FirePaaRadEnv {
         this.currentPlayer = p1;
     }
 
-    public void PrintBoard() {
-        for (int i = 0; i < 6; i++) {
-            for (int j = 0; j < 7; j++) {
-                if (board[i][j] == null) {
-                    System.out.print(board[i][j] + " ");
-                } else {
-                    System.out.print(board[i][j].toString() + " ");
-                }
-            }
-            System.out.println("");
-        }
+    public Player getCurrentPlayer() {
+        return this.currentPlayer;
     }
 
     public boolean isLegalMove(int row, int column) {
@@ -39,11 +30,15 @@ public class FirePaaRadEnv {
         return true;
     }
 
-    public Player getCurrentPlayer() {
-        return this.currentPlayer;
+    public boolean isWinner() {
+        if (checkRightDiagonal() || checkLeftDiagonal() || checkVertical() || checkHorizontal()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    public boolean checkHorisontal() {
+    public boolean checkHorizontal() {
         for (int row = 0; row < 6; row++) {
             int red = 0;
             int yellow = 0;
@@ -51,10 +46,10 @@ public class FirePaaRadEnv {
                 if (this.board[row][collumn] == null) {
                     red = 0;
                     yellow = 0;
-                } else if (this.board[row][collumn].getColor().equals("Red")) {
+                } else if (this.board[row][collumn].getColor().equals("R")) {
                     red++;
                     yellow = 0;
-                } else if (this.board[row][collumn].getColor().equals("Yel")) {
+                } else if (this.board[row][collumn].getColor().equals("Y")) {
                     yellow++;
                     red = 0;
                 }
@@ -64,14 +59,6 @@ public class FirePaaRadEnv {
             }
         }
         return false;
-    }
-
-    public boolean isWinner() {
-        if (checkRightDiagonal() || checkLeftDiagonal() || checkVertical() || checkHorisontal()) {
-            return true;
-        } else {
-            return false;
-        }
     }
 
     private boolean checkLeftDiagonal() {
@@ -110,10 +97,10 @@ public class FirePaaRadEnv {
                 if (this.board[row][column] == null) {
                     red = 0;
                     yellow = 0;
-                } else if (this.board[row][column].getColor().equals("Red")) {
+                } else if (this.board[row][column].getColor().equals("R")) {
                     red++;
                     yellow = 0;
-                } else if (this.board[row][column].getColor().equals("Yel")) {
+                } else if (this.board[row][column].getColor().equals("Y")) {
                     yellow++;
                     red = 0;
                 }
@@ -126,26 +113,38 @@ public class FirePaaRadEnv {
     }
 
     public boolean putPiece(int row, int column) {
-        // try {
-        //     if (isLegalMove(row, column)) {
-                this.board[row][column] = this.currentPlayer.getPiece();
-        //     } else {
-        //         throw new IllegalArgumentException();
-        //     }
-        // } catch (IllegalArgumentException e) {
-        //     System.out.println("Can't make that move: " + e.getMessage());
-        //     return false;
-        // }
-        if (isWinner()) {
-            System.out.printf("%s won", p1);
-            return true;
-        }
+        this.board[row][column] = this.currentPlayer.getPiece();
         if (currentPlayer.equals(p1)) {
             this.currentPlayer = p2;
         } else {
             this.currentPlayer = p1;
         }
+        if (isWinner()) {
+            System.out.printf("%s won", p1);
+            return true;
+        }
         return false;
+    }
+
+    public boolean hasLegalMoves() {
+        for (int collumn = 0; collumn < 7; collumn++) {
+            if (board[0][collumn] == null) {
+                return true;
+            }
+        } return false;
+    }
+
+    public void PrintBoard() {
+        for (int i = 0; i < 6; i++) {
+            for (int j = 0; j < 7; j++) {
+                if (board[i][j] == null) {
+                    System.out.print(board[i][j] + " ");
+                } else {
+                    System.out.print(board[i][j].toString() + " ");
+                }
+            }
+            System.out.println("");
+        }
     }
 
     public static void main(String[] args) {
