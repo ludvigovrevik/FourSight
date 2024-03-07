@@ -2,7 +2,7 @@ package project;
 
 import java.util.Scanner;
 
-public class FirePaaRadEnv implements Cloneable {
+public class FirePaaRadEnv implements Cloneable, FirePaaRadInterface {
     private Piece[][] board;
     private Player p1, p2;
     private Player currentPlayer, otherPlayer;
@@ -49,14 +49,16 @@ public class FirePaaRadEnv implements Cloneable {
         return newBoard;
     }
 
+    @Override
     public Player getResult() {
         if (isWinner()) {
             return this.currentPlayer;
         } else {
             return null;
-            }
         }
+    }
 
+    @Override
     public boolean isWinner() {
         if (checkRightDiagonal() || checkLeftDiagonal() || checkVertical() || checkHorizontal()) {
             return true;
@@ -65,6 +67,7 @@ public class FirePaaRadEnv implements Cloneable {
         }
     }
 
+    @Override
     public boolean checkHorizontal() {
         for (int row = 0; row < 6; row++) {
             int red = 0;
@@ -88,7 +91,8 @@ public class FirePaaRadEnv implements Cloneable {
         return false;
     }
 
-    private boolean checkLeftDiagonal() {
+    @Override
+    public boolean checkLeftDiagonal() {
         for (int row = 0; row < 3; row++) {
             for (int col = 3; col < 7; col++) {
                 if (board[row][col] != null &&
@@ -102,7 +106,8 @@ public class FirePaaRadEnv implements Cloneable {
         return false;
     }
 
-    private boolean checkRightDiagonal() {
+    @Override
+    public boolean checkRightDiagonal() {
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 4; col++) {
                 if (board[row][col] != null &&
@@ -116,7 +121,8 @@ public class FirePaaRadEnv implements Cloneable {
         return false;
     }
 
-    private boolean checkVertical() {
+    @Override
+    public boolean checkVertical() {
         for (int column = 0; column < 7; column++) {
             int yellow = 0;
             int red = 0;
@@ -211,7 +217,7 @@ public class FirePaaRadEnv implements Cloneable {
             env.switchPlayer();
             if (env.isWinner()) {
                 env.PrintBoard();
-                env.currentPlayer();
+                env.getCurrentPlayer();
                 scanner.close();
                 break;
             }

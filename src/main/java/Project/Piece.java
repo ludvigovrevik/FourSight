@@ -1,6 +1,6 @@
 package project;
 
-public class Piece implements FirePaaRadInterface, Cloneable {
+public class Piece implements Cloneable {
     private String color;
     
     public Piece(String color) {
@@ -17,7 +17,6 @@ public class Piece implements FirePaaRadInterface, Cloneable {
         return color;
     }
 
-    @Override
     public String getColor() {
         return color;
     }

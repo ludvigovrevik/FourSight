@@ -1,6 +1,6 @@
 package project;
 
-public class Player implements FirePaaRadInterface{
+public class Player {
     private Piece piece;
     private String name;
 
@@ -17,7 +17,6 @@ public class Player implements FirePaaRadInterface{
         return piece;
     }
 
-    @Override
     public String getColor() {
         return piece.getColor();
     }

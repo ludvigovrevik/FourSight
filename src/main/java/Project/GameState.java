@@ -3,7 +3,7 @@ package project;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameState implements Cloneable {
+public class GameState implements Cloneable, FirePaaRadInterface {
     private Piece[][] board;
     private Player currentPlayer, otherPlayer;
 
@@ -53,6 +53,7 @@ public class GameState implements Cloneable {
         return this;
     }
 
+    @Override
     public boolean isWinner() {
         if (checkRightDiagonal() || checkLeftDiagonal() || checkVertical() || checkHorizontal()) {
             return true;
@@ -72,6 +73,7 @@ public class GameState implements Cloneable {
             return null;
         }
 
+    @Override
     public Player getResult() {
         if (isWinner()) {
             return this.currentPlayer;
@@ -80,6 +82,7 @@ public class GameState implements Cloneable {
             }
         }
 
+    @Override
     public boolean checkHorizontal() {
         for (int row = 0; row < 6; row++) {
             int red = 0;
@@ -103,7 +106,8 @@ public class GameState implements Cloneable {
         return false;
     }
 
-    private boolean checkLeftDiagonal() {
+    @Override
+    public boolean checkLeftDiagonal() {
         for (int row = 0; row < 3; row++) {
             for (int col = 3; col < 7; col++) {
                 if (board[row][col] != null &&
@@ -117,7 +121,8 @@ public class GameState implements Cloneable {
         return false;
     }
 
-    private boolean checkRightDiagonal() {
+    @Override
+    public boolean checkRightDiagonal() {
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 4; col++) {
                 if (board[row][col] != null &&
@@ -131,7 +136,8 @@ public class GameState implements Cloneable {
         return false;
     }
 
-    private boolean checkVertical() {
+    @Override
+    public boolean checkVertical() {
         for (int column = 0; column < 7; column++) {
             int yellow = 0;
             int red = 0;
