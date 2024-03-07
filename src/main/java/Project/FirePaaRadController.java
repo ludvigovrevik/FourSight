@@ -96,6 +96,8 @@ public class FirePaaRadController implements Initializable {
 
     @FXML
     public void enableGame() {
+        resetGame();
+        mcts = null;
         this.p1 = player1.getText();
         this.p2 = player2.getText();
         firePaaRad = new FirePaaRadEnv(p1, p2);
@@ -188,7 +190,7 @@ public class FirePaaRadController implements Initializable {
                 if (p1.equals(firePaaRad.getCurrentPlayer().toString())) {
                     changeCircleColor(row, column, Color.RED);
                 } else {
-                    changeCircleColor(row, column, Color.YELLOW);
+                    changeCircleColor(row, bestAction, Color.YELLOW);
                 }
 
                 if (isTerminal(firePaaRad)) {
