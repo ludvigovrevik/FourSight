@@ -137,28 +137,28 @@ public class FirePaaRadController implements Initializable {
         }
     }
 
-    public boolean isTerminal(FirePaaRadEnv env) {
-        GameState current_state = new GameState(firePaaRad);
-        if (current_state.isTerminal()) {
-            if (current_state.getResult() == null) {
-                System.out.println("It's a tie");
-                disableButtons();
-                return true;
-            } else {
-                this.result.setText((current_state.getResult().toString()) + " vant!");
-                disableButtons();
-                return true;
-            }
-        }
-        return false;
-    }
-
     public void changeCircleColor(int row, int col, Color color) {
         String key = String.format("button%d%d", row, col);
         Circle circle = circleMap.get(key);
         if (circle != null) {
             circle.setFill(color);
         }
+    }
+
+    public boolean isTerminal(FirePaaRadEnv env) {
+        
+            if (env.isWinner()) {
+                if (env.getResult() == null) {
+                    System.out.println("It's a tie");
+                    disableButtons();
+                    return true;
+                } else {
+                    this.result.setText((env.getResult().toString()) + " vant!");
+                    disableButtons();
+                    return true;
+                }
+        }
+        return false;
     }
 
     @FXML
@@ -174,6 +174,7 @@ public class FirePaaRadController implements Initializable {
             } else {
                 changeCircleColor(row, column, Color.YELLOW);
             }
+            firePaaRad.PrintBoard();
 
             if (isTerminal(firePaaRad)) {
                 return;

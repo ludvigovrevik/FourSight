@@ -49,6 +49,14 @@ public class FirePaaRadEnv implements Cloneable {
         return newBoard;
     }
 
+    public Player getResult() {
+        if (isWinner()) {
+            return this.currentPlayer;
+        } else {
+            return null;
+            }
+        }
+
     public boolean isWinner() {
         if (checkRightDiagonal() || checkLeftDiagonal() || checkVertical() || checkHorizontal()) {
             return true;
@@ -138,7 +146,7 @@ public class FirePaaRadEnv implements Cloneable {
                 return row;
             }
         }
-        return -1;
+        throw new IllegalArgumentException("Feil i put piece metoden, fungerte ikke å legge brikke");
     }
 
     public boolean hasLegalMoves() {
@@ -146,7 +154,8 @@ public class FirePaaRadEnv implements Cloneable {
             if (board[0][collumn] == null) {
                 return true;
             }
-        } return false;
+        }
+        return false;
     }
 
     public void switchPlayer() {
@@ -154,13 +163,12 @@ public class FirePaaRadEnv implements Cloneable {
         currentPlayer = otherPlayer;
         otherPlayer = temp;
     }
-    
 
     public void PrintBoard() {
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 7; j++) {
                 if (board[i][j] == null) {
-                    System.out.print(board[i][j] + " ");
+                    System.out.print("X" + " ");
                 } else {
                     System.out.print(board[i][j].toString() + " ");
                 }
@@ -200,8 +208,13 @@ public class FirePaaRadEnv implements Cloneable {
                 }
             }
             env.putPiece(column - 1);
-            scanner.close();
-            break;
-        };
+            env.switchPlayer();
+            if (env.isWinner()) {
+                env.PrintBoard();
+                env.currentPlayer();
+                scanner.close();
+                break;
+            }
+        }
     }
 }
