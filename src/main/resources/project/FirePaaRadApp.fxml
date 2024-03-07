@@ -81,17 +81,16 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button fx:id="buttonx0" mnemonicParsing="false" style="-fx-background-color: black;" text=" " />
-                  <Button fx:id="buttonx1" mnemonicParsing="false" style="-fx-background-color: black;" text=" " GridPane.columnIndex="1" />
-                  <Button fx:id="buttonx2" mnemonicParsing="false" style="-fx-background-color: black;" text=" " GridPane.columnIndex="2" />
-                  <Button fx:id="buttonx3" mnemonicParsing="false" style="-fx-background-color: black;" text=" " GridPane.columnIndex="3" />
-                  <Button fx:id="buttonx4" mnemonicParsing="false" style="-fx-background-color: black;" text=" " GridPane.columnIndex="4" />
-                  <Button fx:id="buttonx5" mnemonicParsing="false" style="-fx-background-color: black;" text=" " GridPane.columnIndex="5" />
-                  <Button fx:id="buttonx6" mnemonicParsing="false" style="-fx-background-color: black;" text=" " GridPane.columnIndex="6" />
+                  <Button fx:id="button0" mnemonicParsing="false" style="-fx-background-color: black;" text=" " onAction="#putPiece"/>
+                  <Button fx:id="button1" mnemonicParsing="false" style="-fx-background-color: black;" text=" " onAction="#putPiece" GridPane.columnIndex="1" />
+                  <Button fx:id="button2" mnemonicParsing="false" style="-fx-background-color: black;" text=" " onAction="#putPiece" GridPane.columnIndex="2" />
+                  <Button fx:id="button3" mnemonicParsing="false" style="-fx-background-color: black;" text=" " onAction="#putPiece" GridPane.columnIndex="3" />
+                  <Button fx:id="button4" mnemonicParsing="false" style="-fx-background-color: black;" text=" " onAction="#putPiece" GridPane.columnIndex="4" />
+                  <Button fx:id="button5" mnemonicParsing="false" style="-fx-background-color: black;" text=" " onAction="#putPiece" GridPane.columnIndex="5" />
+                  <Button fx:id="button6" mnemonicParsing="false" style="-fx-background-color: black;" text=" " onAction="#putPiece" GridPane.columnIndex="6" />
                   <Circle fx:id="button00" fill="WHITE" radius="10.0" stroke="BLACK" strokeType="INSIDE" GridPane.rowIndex="1" />
                   <Circle fx:id="button01" fill="WHITE" radius="10.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <Circle fx:id="button02" fill="WHITE" radius="10.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                 <!-- Updated XML for Circles with fx:id to match corresponding Button IDs -->
                   <Circle fx:id="button03" fill="WHITE" radius="10.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="3" GridPane.rowIndex="1" />
                   <Circle fx:id="button04" fill="WHITE" radius="10.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="4" GridPane.rowIndex="1" />
                   <Circle fx:id="button05" fill="WHITE" radius="10.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="5" GridPane.rowIndex="1" />

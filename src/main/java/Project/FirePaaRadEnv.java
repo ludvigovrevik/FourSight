@@ -24,7 +24,7 @@ public class FirePaaRadEnv implements Cloneable {
     }
 
     public boolean isLegalMove(int column) {
-        for (int row = 6; row > 0; row--) {
+        for (int row = 5; row >= 0; row--) {
             // Check if the top piece of this column is null (i.e., column is not full)
             if (board[row][column] == null) {
                 return true;
@@ -131,18 +131,14 @@ public class FirePaaRadEnv implements Cloneable {
         return false;
     }
 
-    public boolean putPiece(int column) {
+    public int putPiece(int column) {
         for (int row = 5; row >= 0; row--) {
             if (this.board[row][column] == null) {
                 this.board[row][column] = this.currentPlayer.getPiece();
-                switchPlayer();
-                if (isWinner()) {
-                    return true;
-                }
-                break;
+                return row;
             }
         }
-        return false;
+        return -1;
     }
 
     public boolean hasLegalMoves() {
@@ -203,10 +199,9 @@ public class FirePaaRadEnv implements Cloneable {
                     scanner.next(); // Consume the invalid input
                 }
             }
-            if (env.putPiece(column - 1)) {
-                scanner.close();
-                break;
-            };
-        }
+            env.putPiece(column - 1);
+            scanner.close();
+            break;
+        };
     }
 }
