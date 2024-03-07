@@ -123,7 +123,7 @@
                 <Button fx:id="button54" mnemonicParsing="false" onAction="#putPiece" styleClass="myButtons" text="." GridPane.columnIndex="4" GridPane.rowIndex="6" />
                 <Button fx:id="button55" mnemonicParsing="false" onAction="#putPiece" styleClass="myButtons" text="." GridPane.columnIndex="5" GridPane.rowIndex="6" />
                 <Button fx:id="button56" mnemonicParsing="false" onAction="#putPiece" prefWidth="38.0" styleClass="myButtons" text="." GridPane.columnIndex="6" GridPane.rowIndex="6" />
-                  <Button mnemonicParsing="false" style="-fx-background-color: black;" text="." />
+                  <Button fx:id="button56" mnemonicParsing="false" style="-fx-background-color: black;" text="." />
                   <Button mnemonicParsing="false" style="-fx-background-color: black;" text="." GridPane.columnIndex="1" />
                   <Button mnemonicParsing="false" style="-fx-background-color: black;" text="." GridPane.columnIndex="2" />
                   <Button mnemonicParsing="false" style="-fx-background-color: black;" text="." GridPane.columnIndex="3" />
@@ -136,13 +136,13 @@
             <Separator layoutX="201.0" layoutY="304.0" prefHeight="0.0" prefWidth="264.0" />
             <ImageView fitHeight="36.0" fitWidth="41.0" layoutX="73.0" layoutY="152.0" pickOnBounds="true" preserveRatio="true" />
             <Label layoutX="263.0" layoutY="46.0" text="Velkommen til Fire På Rad" />
-            <Label fx:id="result" layoutX="257.0" layoutY="244.0" />
+            <Label fx:id="result" layoutX="257.0" layoutY="300.0" />
             <TextField fx:id="player1" layoutX="46.0" layoutY="121.0" prefHeight="26.0" prefWidth="83.0" />
             <TextField fx:id="player2" layoutX="46.0" layoutY="67.0" prefHeight="26.0" prefWidth="83.0" />
             <Text fx:id="p1Text" layoutX="46.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player 1" />
             <Text fx:id="p2Text" layoutX="45.0" layoutY="118.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player 2" />
             <Button fx:id="Ok" layoutX="45.0" layoutY="173.0" mnemonicParsing="false" onAction="#enableGame" text="Start spill" />
-            <Button fx:id="aiButton" layoutX="45.0" layoutY="320.0" mnemonicParsing="false" text="Spill mot AI!" />
+            <Button fx:id="aiButton" layoutX="45.0" layoutY="320.0" mnemonicParsing="false" text="Spill mot AI!" onAction="#playAI"/>
             <Label layoutX="201.0" layoutY="85.0" text="Velg " />
       </children>
     </AnchorPane>

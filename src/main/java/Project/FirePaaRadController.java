@@ -13,7 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 
-public class FirePaaRadController implements Initializable{
+public class FirePaaRadController implements Initializable {
     private String p1, p2;
 
     @FXML
@@ -32,8 +32,11 @@ public class FirePaaRadController implements Initializable{
     private GridPane buttonGrid;
 
     private FirePaaRadEnv firePaaRad;
-    
-    
+
+    private MCTS mcts;
+
+    private GameState state;
+
     public void initGame() {
         disableButtons();
     }
@@ -41,8 +44,18 @@ public class FirePaaRadController implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         initGame();
+
     }
-    
+
+    @FXML
+    public void playAI() {
+        this.p1 = player1.getText();
+        this.p2 = "AI";
+        firePaaRad = new FirePaaRadEnv(p1, p2);
+        mcts = new MCTS();
+        resetButtonsText();
+    }
+
     @FXML
     public void enableGame() {
         this.p1 = player1.getText();
@@ -82,27 +95,38 @@ public class FirePaaRadController implements Initializable{
     public void putPiece(ActionEvent event) {
         Button clickedButton = (Button) event.getSource();
         String buttonId = clickedButton.getId();
-        
-    
-        int row = Character.getNumericValue(buttonId.charAt(6)); // This gets X
-        int column = Character.getNumericValue(buttonId.charAt(7)); // This gets Y
+        int column = Character.getNumericValue(buttonId.charAt(6)); // This gets Y
 
-        if (firePaaRad.isLegalMove(row, column)) {
-            if (firePaaRad.putPiece(row, column)) { // returns true if we have a winner
-                // put the piece and return the winner!
-                clickedButton.setText(firePaaRad.getCurrentPlayer().getColor());
-                this.result.setText(firePaaRad.getCurrentPlayer().toString() + " has won!");
-                // disable all the buttons
-                disableButtons();
-            } else {
-                clickedButton.setText(firePaaRad.getCurrentPlayer().getColor());
-                if (!firePaaRad.hasLegalMoves()) {
-                    disableButtons();
-                    this.result.setText("It's a tie!");
-                }
-            }
+        if (firePaaRad.isLegalMove(column)) {
+            // GameState tempState = new GameState(firePaaRad);
+            // tempState.applyAction(column);
+            firePaaRad.putPiece(column); // put piece and update the board accordingly - change the gui
+            
+            
+            // clickedButton.setText(firePaaRad.getCurrentPlayer().getColor());
+            // this.result.setText(firePaaRad.getCurrentPlayer().toString() + " has won!");
+                
+            disableButtons();
         } else {
-            this.result.setText("Invalid move buddy");
+            firePaaRad.putPiece(mcts.runSimulation(state));
+            clickedButton.setText(firePaaRad.getCurrentPlayer().getColor());
+
+            if (!firePaaRad.hasLegalMoves()) {
+                disableButtons();
+                this.result.setText("It's a tie!");
+            }
+
+            GameState state = new GameState(firePaaRad);
+            int bestAction = mcts.runSimulation(state);
+            firePaaRad.putPiece(bestAction);
+
+            if (!firePaaRad.hasLegalMoves()) {
+                disableButtons();
+                this.result.setText("It's a tie!");
+            }
+            }
         }
+    {
+        this.result.setText("Invalid move buddy");
     }
 }
