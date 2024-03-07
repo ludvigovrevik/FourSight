@@ -107,26 +107,26 @@ public class FirePaaRadController implements Initializable {
             // this.result.setText(firePaaRad.getCurrentPlayer().toString() + " has won!");
                 
             disableButtons();
-        } else {
-            firePaaRad.putPiece(mcts.runSimulation(state));
-            clickedButton.setText(firePaaRad.getCurrentPlayer().getColor());
+    //     } else {
+    //         firePaaRad.putPiece(mcts.runSimulation(state));
+    //         clickedButton.setText(firePaaRad.getCurrentPlayer().getColor());
 
-            if (!firePaaRad.hasLegalMoves()) {
-                disableButtons();
-                this.result.setText("It's a tie!");
-            }
+    //         if (!firePaaRad.hasLegalMoves()) {
+    //             disableButtons();
+    //             this.result.setText("It's a tie!");
+    //         }
 
-            GameState state = new GameState(firePaaRad);
-            int bestAction = mcts.runSimulation(state);
-            firePaaRad.putPiece(bestAction);
+    //         GameState state = new GameState(firePaaRad);
+    //         int bestAction = mcts.runSimulation(state);
+    //         firePaaRad.putPiece(bestAction);
 
-            if (!firePaaRad.hasLegalMoves()) {
-                disableButtons();
-                this.result.setText("It's a tie!");
-            }
-            }
-        }
-    {
-        this.result.setText("Invalid move buddy");
+    //         if (!firePaaRad.hasLegalMoves()) {
+    //             disableButtons();
+    //             this.result.setText("It's a tie!");
+    //         }
+    //         }
+    //     }
+    // {
+    //     this.result.setText("Invalid move buddy");
     }
-}
+}}

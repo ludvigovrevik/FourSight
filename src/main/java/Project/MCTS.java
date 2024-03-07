@@ -123,32 +123,6 @@ public class MCTS {
         int bestAction = mcts.runSimulation(initialState);
         System.out.println("Best action is: " + bestAction);
         firePaaRad.putPiece(bestAction);
-        
-        bestAction = mcts.runSimulation(initialState);
-        System.out.println("Best action is: " + bestAction);
-        firePaaRad.putPiece(bestAction);
-        bestAction = mcts.runSimulation(initialState);
-        System.out.println("Best action is: " + bestAction);
-        firePaaRad.putPiece(bestAction);
-        bestAction = mcts.runSimulation(initialState);
-        System.out.println("Best action is: " + bestAction);
-        firePaaRad.putPiece(bestAction);
-        bestAction = mcts.runSimulation(initialState);
-        System.out.println("Best action is: " + bestAction);
-        firePaaRad.putPiece(bestAction);
-        bestAction = mcts.runSimulation(initialState);
-        System.out.println("Best action is: " + bestAction);
-        firePaaRad.putPiece(bestAction);
-        bestAction = mcts.runSimulation(initialState);
-        System.out.println("Best action is: " + bestAction);
-        firePaaRad.putPiece(bestAction);
-        bestAction = mcts.runSimulation(initialState);
-        System.out.println("Best action is: " + bestAction);
-        firePaaRad.putPiece(bestAction);
-        bestAction = mcts.runSimulation(initialState);
-        System.out.println("Best action is: " + bestAction);
-        firePaaRad.putPiece(bestAction);
-
-        firePaaRad.PrintBoard();
     }
 }
+

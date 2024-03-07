@@ -136,7 +136,7 @@
             <Separator layoutX="201.0" layoutY="304.0" prefHeight="0.0" prefWidth="264.0" />
             <ImageView fitHeight="36.0" fitWidth="41.0" layoutX="73.0" layoutY="152.0" pickOnBounds="true" preserveRatio="true" />
             <Label layoutX="263.0" layoutY="46.0" text="Velkommen til Fire På Rad" />
-            <Label fx:id="result" layoutX="257.0" layoutY="310.0" />
+            <Label fx:id="result" layoutX="257.0" layoutY="310.0" text="velkommen"/>
             <TextField fx:id="player1" layoutX="46.0" layoutY="121.0" prefHeight="26.0" prefWidth="83.0" />
             <TextField fx:id="player2" layoutX="46.0" layoutY="67.0" prefHeight="26.0" prefWidth="83.0" />
             <Text fx:id="p1Text" layoutX="46.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player 1" />
