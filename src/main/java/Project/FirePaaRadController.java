@@ -86,6 +86,7 @@ public class FirePaaRadController implements Initializable {
 
     @FXML
     public void playAI() {
+        resetGame();
         this.p1 = player1.getText();
         System.out.println(p1);
         this.p2 = "AI";
