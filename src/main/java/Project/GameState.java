@@ -2,10 +2,12 @@ package project;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class GameState implements Cloneable, FirePaaRadInterface {
     private Piece[][] board;
     private Player currentPlayer, otherPlayer;
+    private Player winner = null;
 
     public GameState(Player currentPlayer, Player otherPlayer) {
         this.board = new Piece[6][7];
@@ -28,6 +30,14 @@ public class GameState implements Cloneable, FirePaaRadInterface {
         return currentPlayer;
     }
 
+    public Player getOtherPlayer() {
+        return otherPlayer;
+    }
+
+    public Player getOtherPlayer(Player current) {
+        return (current.equals(this.currentPlayer)) ? this.otherPlayer : this.currentPlayer;
+    }
+
     public List<Integer> legalActions() {
         List<Integer> legalMoves = new ArrayList<>();
 
@@ -44,6 +54,7 @@ public class GameState implements Cloneable, FirePaaRadInterface {
         for (int row = 5; row >= 0; row--) {
             if (this.board[row][column] == null) {
                 this.board[row][column] = this.currentPlayer.getPiece();
+                checkForWinner();
                 switchPlayer();
                 return this;
             }
@@ -53,27 +64,28 @@ public class GameState implements Cloneable, FirePaaRadInterface {
         return this;
     }
 
-    @Override
-    public boolean isWinner() {
+    public Player checkForWinner() {
         if (checkRightDiagonal() || checkLeftDiagonal() || checkVertical() || checkHorizontal()) {
-            return true;
+            return currentPlayer;
         } else {
-            return false;
+            return null;
         }
     }
 
-    public Player getResult(Player currentPlayer) {
-        if (isWinner()) {
-            if (currentPlayer.equals(this.currentPlayer)) {
-                return this.otherPlayer;
-            } else if (currentPlayer.equals(this.otherPlayer)) {
-                return this.currentPlayer;
-                }
-            }
-            return null;
-        }
+    public int getResult(Player player) {
+        if (winner == null) return 0; // No winner yet or a draw
+        return winner.getPiece().getColor().equals(player.getPiece().getColor()) ? 1 : -1;
+}
 
-    @Override
+    public boolean isWinner() {
+        Player potentialWinner = checkForWinner(); // A new method that checks all conditions and returns the winning player, if any
+        if (potentialWinner != null) {
+            this.winner = potentialWinner;
+            return true;
+        }
+        return false;
+    }
+
     public Player getResult() {
         if (isWinner()) {
             return this.currentPlayer;
@@ -173,6 +185,20 @@ public class GameState implements Cloneable, FirePaaRadInterface {
         return false;
     }
 
+    public void PrintBoard() {
+        for (int i = 0; i < 6; i++) {
+            for (int j = 0; j < 7; j++) {
+                if (board[i][j] == null) {
+                    System.out.print("X" + " ");
+                } else {
+                    System.out.print(board[i][j].toString() + " ");
+                }
+            }
+            System.out.println("");
+        }
+        System.out.println("");
+    }
+
     // Method to clone the GameState deeply if needed for simulation
     @Override
     public GameState clone() {
@@ -195,3 +221,4 @@ public class GameState implements Cloneable, FirePaaRadInterface {
         }
     }
 }
+    

@@ -10,12 +10,12 @@ public class MCTS {
     private Random random = new Random();
 
     public MCTS() {
-        c = 1.41;
+        c = 13;
     }
 
     public double UCB(Node node) {
         if (node.getVisits() == 0) {
-            return 100000.0;
+            return 10000000.0;
         }
         return (node.getReward() / node.getVisits())
                 + this.c * (Math.log(node.getParent().getVisits()) / node.getVisits());
@@ -23,7 +23,7 @@ public class MCTS {
 
     public Node select(Node node) {
         // System.out.println("Selecting node");
-        double highestUCB = -100000;
+        double highestUCB = -10000000;
         Node bestNode = null; // Initialize bestNode variable
         Node currentNode = node;
 
@@ -36,7 +36,7 @@ public class MCTS {
                 }
             }
             currentNode = bestNode;
-            highestUCB = -10000;
+            highestUCB = -10000000;
         }
         return currentNode;
     }
@@ -51,12 +51,10 @@ public class MCTS {
         }
     }
 
-    public Player simulate(Node node) {
-        // returns if it's the winner from the simulation or not
+    public int simulate(Node node) {
         Player current = node.getState().getCurrentPlayer();
         GameState simulationState = node.getState().clone();
         while (!simulationState.isTerminal()) {
-            // simuler neste steg,
             List<Integer> legalActions = simulationState.legalActions();
             int action = legalActions.get(random.nextInt(legalActions.size()));
             simulationState = simulationState.applyAction(action);
@@ -71,7 +69,7 @@ public class MCTS {
         node.addVisits();
         if (node.getParent() != null) {
             node.addReward(result);
-            this.backpropagate(node.getParent(), -result);
+            this.backpropagate(node.getParent(), -(result));
         }
     }
 
@@ -81,39 +79,31 @@ public class MCTS {
         ).getAction(); // Get the action associated with the node with the most visits
     }
 
-    public int getResult(Player winner, Player root) {
-        if (winner == null) {
-            return 0;
-        } if (winner.equals(root)) {
-            return 1;
-        } else {return -1;}
-    }
-
     public int runSimulation(GameState state) {
-        Node root_node = new Node(null, state, 0);
+        Node root_node = new Node(null, state, -1);
         for (int i = 0; i < 10000; i++) {
-            Player winner = null;
-            Node node = this.select(root_node);
-            if (!node.getState().isTerminal() && !node.hasChildren()) {
+            int winner = 0;
+            Node node = this.select(root_node); // selects the node with the highest UCB value
+            if (!node.getState().isTerminal() && !node.hasChildren()) { // if the node is a leafnode
                 this.expand(node); // creates all of its children
-                // returns if it's the winner from the simulation or not
+                // returns the winner of the simulation
                 winner = this.simulate(node);
             } else { // if it's a terminal node or doesn't have children
-                Player player = node.getState().getResult();
+                Player player = node.getParent().getState().getCurrentPlayer();
                 if (player == null) {
-                    System.out.println("Player is none for some reason");
+                    System.out.println("player is null for some reason");
                 }
-                winner = player;
+                winner = -(node.getState().getResult(player));
             }
-            int result = this.getResult(winner, root_node.getState().getCurrentPlayer());
-            this.backpropagate(node, result);
+            this.backpropagate(node, winner);
         }
 
         for (Node child : root_node.getChildren()) {
-            System.out.println("Action: " + child.getAction() + " Visits: " + child.getVisits() + " Reward: " + child.getReward());
+            System.out.println(
+                    "Action: " + child.getAction() + " Visits: " + child.getVisits() + " Reward: " + child.getReward());
         }
         return getBestAction(root_node);
-        }
+    }
 
     public static void main(String[] args) {
         FirePaaRadEnv firePaaRad = new FirePaaRadEnv("Ludvig", "Thomas");
@@ -125,4 +115,3 @@ public class MCTS {
         firePaaRad.putPiece(bestAction);
     }
 }
-
