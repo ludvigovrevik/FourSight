@@ -86,9 +86,11 @@ public class FirePaaRadController implements Initializable {
 
     @FXML
     public void playAI() {
+        
         resetGame();
+        System.out.println("P1 Text felt: " + player1.getText());
+        System.out.println("P2 Text felt: " + player2.getText());
         this.p1 = player1.getText();
-        System.out.println(p1);
         this.p2 = "AI";
         firePaaRad = new FirePaaRadEnv(p1, p2);
         mcts = new MCTS();
@@ -99,6 +101,8 @@ public class FirePaaRadController implements Initializable {
     public void enableGame() {
         resetGame();
         mcts = null;
+        System.out.println("P1 Text felt: " + player1.getText());
+        System.out.println("P2 Text felt: " + player2.getText());
         this.p1 = player1.getText();
         this.p2 = player2.getText();
         firePaaRad = new FirePaaRadEnv(p1, p2);
@@ -154,6 +158,11 @@ public class FirePaaRadController implements Initializable {
                     return true;
                 } else {
                     this.result.setText((env.getResult().toString()) + " vant!");
+                    // System.out.println("Spiller 1: " + p1);
+                    // System.out.println("Spiller 2: " + p2);
+                    // System.out.println("Currentplayer: " + env.getCurrentPlayer().toString());
+                    // System.out.println("Otherplayer: " + env.getOtherPlayer().toString());
+                    // System.out.println("Vinner: " + env.getResult().toString());
                     disableButtons();
                     return true;
                 }
@@ -175,12 +184,11 @@ public class FirePaaRadController implements Initializable {
                 changeCircleColor(row, column, Color.YELLOW);
             }
             firePaaRad.PrintBoard();
-
-            firePaaRad.switchPlayer();
+            
             if (isTerminal(firePaaRad)) {
                 return;
             }
-            
+            firePaaRad.switchPlayer();
 
             if (mcts != null) {
                 GameState currentState = new GameState(firePaaRad);
@@ -192,11 +200,11 @@ public class FirePaaRadController implements Initializable {
                 } else {
                     changeCircleColor(row, bestAction, Color.YELLOW);
                 }
-                firePaaRad.switchPlayer();
+                
                 if (isTerminal(firePaaRad)) {
                     return;
                 }
-                
+                firePaaRad.switchPlayer();
             }
         } else {
             this.result.setText("Can't put your piece there!");
