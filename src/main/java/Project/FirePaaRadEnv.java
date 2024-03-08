@@ -34,15 +34,14 @@ public class FirePaaRadEnv implements Cloneable, FirePaaRadInterface {
     }
 
     public Piece[][] copyBoard() {
-        Piece[][] newBoard = new Piece[6][7]; // Create a new 6x7 board
+        Piece[][] newBoard = new Piece[6][7];
 
         for (int row = 0; row < 6; row++) {
             for (int col = 0; col < 7; col++) {
                 if (this.board[row][col] != null) {
-                    // Assuming Piece has a copy constructor or clone method
                     newBoard[row][col] = new Piece(this.board[row][col]);
                 } else {
-                    newBoard[row][col] = null; // Copy null if there's no piece in this cell
+                    newBoard[row][col] = null;
                 }
             }
         }
@@ -121,6 +120,7 @@ public class FirePaaRadEnv implements Cloneable, FirePaaRadInterface {
         return false;
     }
 
+
     @Override
     public boolean checkVertical() {
         for (int column = 0; column < 7; column++) {
@@ -180,7 +180,7 @@ public class FirePaaRadEnv implements Cloneable, FirePaaRadInterface {
                 }
             }
             System.out.println("");
-        }
+        } 
     }
 
     public static void main(String[] args) {

@@ -147,7 +147,6 @@ public class FirePaaRadController implements Initializable {
     }
 
     public boolean isTerminal(FirePaaRadEnv env) {
-        
             if (env.isWinner()) {
                 if (env.getResult() == null) {
                     System.out.println("It's a tie");
@@ -187,8 +186,6 @@ public class FirePaaRadController implements Initializable {
                 int bestAction = mcts.runSimulation(currentState);
                 row = firePaaRad.putPiece(bestAction);
                 firePaaRad.PrintBoard();
-                System.out.println(firePaaRad.getCurrentPlayer().toString() + "på deg");
-                System.out.println(p2 + "hei");
                 if (p1.equals(firePaaRad.getCurrentPlayer().toString())) {
                     changeCircleColor(row, column, Color.RED);
                 } else {

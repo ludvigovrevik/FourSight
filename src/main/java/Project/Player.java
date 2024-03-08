@@ -10,6 +10,9 @@ public class Player {
         } else if (i == 2) {
             piece = new Piece("Y");   
         }
+        if (name == null) {
+            System.out.println("her blir det en feil");
+        }
         this.name = name;
     }
 

@@ -2,14 +2,14 @@ package project;
 
 public class Piece implements Cloneable {
     private String color;
-    
+
     public Piece(String color) {
-        this.color = color;       
+        this.color = color;
     }
 
     // for deep copying
     public Piece(Piece pieceToCopy) {
-        this.color = pieceToCopy.color; 
+        this.color = pieceToCopy.color;
     }
 
     @Override
@@ -27,7 +27,7 @@ public class Piece implements Cloneable {
         try {
             return (Piece) super.clone();
         } catch (CloneNotSupportedException e) {
-            throw new AssertionError();  // Can ignore this if you're sure clone is supported
+            throw new AssertionError(); // Can ignore this if you're sure clone is supported
         }
     }
 }
