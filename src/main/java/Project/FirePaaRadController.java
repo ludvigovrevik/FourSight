@@ -176,10 +176,11 @@ public class FirePaaRadController implements Initializable {
             }
             firePaaRad.PrintBoard();
 
+            firePaaRad.switchPlayer();
             if (isTerminal(firePaaRad)) {
                 return;
             }
-            firePaaRad.switchPlayer();
+            
 
             if (mcts != null) {
                 GameState currentState = new GameState(firePaaRad);
@@ -191,11 +192,11 @@ public class FirePaaRadController implements Initializable {
                 } else {
                     changeCircleColor(row, bestAction, Color.YELLOW);
                 }
-
+                firePaaRad.switchPlayer();
                 if (isTerminal(firePaaRad)) {
                     return;
                 }
-                firePaaRad.switchPlayer();
+                
             }
         } else {
             this.result.setText("Can't put your piece there!");
