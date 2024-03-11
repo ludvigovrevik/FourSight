@@ -20,7 +20,6 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 
 public class FirePaaRadController implements Initializable {
-
     @FXML
     private Circle button00, button01, button02, button03, button04, button05, button06;
 
@@ -55,6 +54,8 @@ public class FirePaaRadController implements Initializable {
     private GridPane buttonGrid;
 
     private Map<String, Circle> circleMap = new HashMap<>();
+
+    public Leaderboard leaderboard = new Leaderboard();
 
     private FirePaaRadEnv firePaaRad;
 
@@ -151,18 +152,30 @@ public class FirePaaRadController implements Initializable {
     }
 
     public boolean isTerminal(FirePaaRadEnv env) {
-        if (env.isWinner()) {
-            this.result.setText((env.getResult().toString()) + " vant!");
-            disableButtons();
-            return true;
-            }
-        if (!env.hasLegalMoves()) {
-            this.result.setText("Uavgjort");
-            return true;
-            }
+            if (env.isWinner()) {
+                if (env.getResult() == null) {
+                    System.out.println("It's a tie");
+                    disableButtons();
+                    return true;
+                } else {
+                    this.result.setText((env.getResult().toString()) + " vant!");
+                    // System.out.println("Spiller 1: " + p1);
+                    // System.out.println("Spiller 2: " + p2);
+                    // System.out.println("Currentplayer: " + env.getCurrentPlayer().toString());
+                    // System.out.println("Otherplayer: " + env.getOtherPlayer().toString());
+                    // System.out.println("Vinner: " + env.getResult().toString());
+                    
+                    leaderboard.saveGame(env.getResult().toString());
+                    disableButtons();
+                    return true;
+                }
+        }
         return false;
     }
     
+
+    
+
 
     @FXML
     public void putPiece(ActionEvent event) {
