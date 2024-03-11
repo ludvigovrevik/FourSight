@@ -151,24 +151,18 @@ public class FirePaaRadController implements Initializable {
     }
 
     public boolean isTerminal(FirePaaRadEnv env) {
-            if (env.isWinner()) {
-                if (env.getResult() == null) {
-                    System.out.println("It's a tie");
-                    disableButtons();
-                    return true;
-                } else {
-                    this.result.setText((env.getResult().toString()) + " vant!");
-                    // System.out.println("Spiller 1: " + p1);
-                    // System.out.println("Spiller 2: " + p2);
-                    // System.out.println("Currentplayer: " + env.getCurrentPlayer().toString());
-                    // System.out.println("Otherplayer: " + env.getOtherPlayer().toString());
-                    // System.out.println("Vinner: " + env.getResult().toString());
-                    disableButtons();
-                    return true;
-                }
-        }
+        if (env.isWinner()) {
+            this.result.setText((env.getResult().toString()) + " vant!");
+            disableButtons();
+            return true;
+            }
+        if (!env.hasLegalMoves()) {
+            this.result.setText("Uavgjort");
+            return true;
+            }
         return false;
     }
+    
 
     @FXML
     public void putPiece(ActionEvent event) {

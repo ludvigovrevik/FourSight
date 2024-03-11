@@ -2,7 +2,6 @@ package project;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class GameState implements Cloneable, FirePaaRadInterface {
     private Piece[][] board;
@@ -34,8 +33,8 @@ public class GameState implements Cloneable, FirePaaRadInterface {
         return otherPlayer;
     }
 
-    public Player getOtherPlayer(Player current) {
-        return (current.equals(this.currentPlayer)) ? this.otherPlayer : this.currentPlayer;
+    public Player getWinner() {
+        return winner;
     }
 
     public List<Integer> legalActions() {
@@ -54,14 +53,25 @@ public class GameState implements Cloneable, FirePaaRadInterface {
         for (int row = 5; row >= 0; row--) {
             if (this.board[row][column] == null) {
                 this.board[row][column] = this.currentPlayer.getPiece();
-                checkForWinner();
+                isWinner();
                 switchPlayer();
                 return this;
             }
         }
-        // not nessessarry, because when calling this function, we first check if it is
-        // a legal one.
         return this;
+    }
+
+    public void switchPlayer() {
+        Player temp = currentPlayer;
+        currentPlayer = otherPlayer;
+        otherPlayer = temp;
+    }
+
+    public boolean isTerminal() {
+        if (isWinner() || legalActions().size() == 0) {
+            return true;
+        }
+        return false;
     }
 
     public Player checkForWinner() {
@@ -72,11 +82,6 @@ public class GameState implements Cloneable, FirePaaRadInterface {
         }
     }
 
-    public int getResult(Player player) {
-        if (winner == null) return 0; // No winner yet or a draw
-        return winner.getPiece().getColor().equals(player.getPiece().getColor()) ? 1 : -1;
-}
-
     public boolean isWinner() {
         Player potentialWinner = checkForWinner(); // A new method that checks all conditions and returns the winning player, if any
         if (potentialWinner != null) {
@@ -84,6 +89,11 @@ public class GameState implements Cloneable, FirePaaRadInterface {
             return true;
         }
         return false;
+    }
+
+    public int getResult(Player player) {
+        if (winner == null) return 0; // No winner yet or a draw
+        return winner.getPiece().getColor().equals(player.getPiece().getColor()) ? 1 : -1;
     }
 
     public Player getResult() {
@@ -119,6 +129,31 @@ public class GameState implements Cloneable, FirePaaRadInterface {
     }
 
     @Override
+    public boolean checkVertical() {
+        for (int column = 0; column < 7; column++) {
+            int yellow = 0;
+            int red = 0;
+            for (int row = 0; row < 6; row++) {
+                if (this.board[row][column] == null) {
+                    red = 0;
+                    yellow = 0;
+                } else if (this.board[row][column].getColor().equals("R")) {
+                    red++;
+                    yellow = 0;
+                } else if (this.board[row][column].getColor().equals("Y")) {
+                    yellow++;
+                    red = 0;
+                }
+                if (red == 4 || yellow == 4) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+
+    @Override
     public boolean checkLeftDiagonal() {
         for (int row = 0; row < 3; row++) {
             for (int col = 3; col < 7; col++) {
@@ -144,43 +179,6 @@ public class GameState implements Cloneable, FirePaaRadInterface {
                     return true;
                 }
             }
-        }
-        return false;
-    }
-
-    @Override
-    public boolean checkVertical() {
-        for (int column = 0; column < 7; column++) {
-            int yellow = 0;
-            int red = 0;
-            for (int row = 0; row < 6; row++) {
-                if (this.board[row][column] == null) {
-                    red = 0;
-                    yellow = 0;
-                } else if (this.board[row][column].getColor().equals("R")) {
-                    red++;
-                    yellow = 0;
-                } else if (this.board[row][column].getColor().equals("Y")) {
-                    yellow++;
-                    red = 0;
-                }
-                if (red == 4 || yellow == 4) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    public void switchPlayer() {
-        Player temp = currentPlayer;
-        currentPlayer = otherPlayer;
-        otherPlayer = temp;
-    }
-
-    public boolean isTerminal() {
-        if (isWinner() || legalActions().size() == 0) {
-            return true;
         }
         return false;
     }

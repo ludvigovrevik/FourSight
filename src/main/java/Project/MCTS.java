@@ -10,7 +10,7 @@ public class MCTS {
     private Random random = new Random();
 
     public MCTS() {
-        c = 13;
+        c = 1.43;
     }
 
     public double UCB(Node node) {
@@ -89,11 +89,11 @@ public class MCTS {
                 // returns the winner of the simulation
                 winner = this.simulate(node);
             } else { // if it's a terminal node or doesn't have children
-                Player player = node.getParent().getState().getCurrentPlayer();
+                Player player = node.getParent().getState().getCurrentPlayer(); // the player who placed the last piece
                 if (player == null) {
                     System.out.println("player is null for some reason");
                 }
-                winner = -(node.getState().getResult(player));
+                winner = -(node.getState().getResult(player)); // siste node, getResult(spiller som satte brikken)
             }
             this.backpropagate(node, winner);
         }

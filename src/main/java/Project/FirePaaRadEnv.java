@@ -33,28 +33,29 @@ public class FirePaaRadEnv implements Cloneable, FirePaaRadInterface {
         return false;
     }
 
-    public Piece[][] copyBoard() {
-        Piece[][] newBoard = new Piece[6][7];
-
-        for (int row = 0; row < 6; row++) {
-            for (int col = 0; col < 7; col++) {
-                if (this.board[row][col] != null) {
-                    newBoard[row][col] = new Piece(this.board[row][col]);
-                } else {
-                    newBoard[row][col] = null;
-                }
+    public int putPiece(int column) {
+        for (int row = 5; row >= 0; row--) {
+            if (this.board[row][column] == null) {
+                this.board[row][column] = this.currentPlayer.getPiece();
+                return row;
             }
         }
-        return newBoard;
+        throw new IllegalArgumentException("Feil i put piece metoden, fungerte ikke å legge brikke");
     }
 
-    @Override
-    public Player getResult() {
-        if (isWinner()) {
-            return this.currentPlayer;
-        } else {
-            return null;
+    public void switchPlayer() {
+        Player temp = currentPlayer;
+        currentPlayer = otherPlayer;
+        otherPlayer = temp;
+    }
+
+    public boolean hasLegalMoves() {
+        for (int collumn = 0; collumn < 7; collumn++) {
+            if (board[0][collumn] == null) {
+                return true;
+            }
         }
+        return false;
     }
 
     @Override
@@ -63,6 +64,15 @@ public class FirePaaRadEnv implements Cloneable, FirePaaRadInterface {
             return true;
         } else {
             return false;
+        }
+    }
+
+    @Override
+    public Player getResult() {
+        if (isWinner()) {
+            return this.currentPlayer;
+        } else {
+            return null;
         }
     }
 
@@ -79,6 +89,30 @@ public class FirePaaRadEnv implements Cloneable, FirePaaRadInterface {
                     red++;
                     yellow = 0;
                 } else if (this.board[row][collumn].getColor().equals("Y")) {
+                    yellow++;
+                    red = 0;
+                }
+                if (red == 4 || yellow == 4) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean checkVertical() {
+        for (int column = 0; column < 7; column++) {
+            int yellow = 0;
+            int red = 0;
+            for (int row = 0; row < 6; row++) {
+                if (this.board[row][column] == null) {
+                    red = 0;
+                    yellow = 0;
+                } else if (this.board[row][column].getColor().equals("R")) {
+                    red++;
+                    yellow = 0;
+                } else if (this.board[row][column].getColor().equals("Y")) {
                     yellow++;
                     red = 0;
                 }
@@ -120,55 +154,21 @@ public class FirePaaRadEnv implements Cloneable, FirePaaRadInterface {
         return false;
     }
 
+    public Piece[][] copyBoard() {
+        Piece[][] newBoard = new Piece[6][7];
 
-    @Override
-    public boolean checkVertical() {
-        for (int column = 0; column < 7; column++) {
-            int yellow = 0;
-            int red = 0;
-            for (int row = 0; row < 6; row++) {
-                if (this.board[row][column] == null) {
-                    red = 0;
-                    yellow = 0;
-                } else if (this.board[row][column].getColor().equals("R")) {
-                    red++;
-                    yellow = 0;
-                } else if (this.board[row][column].getColor().equals("Y")) {
-                    yellow++;
-                    red = 0;
-                }
-                if (red == 4 || yellow == 4) {
-                    return true;
+        for (int row = 0; row < 6; row++) {
+            for (int col = 0; col < 7; col++) {
+                if (this.board[row][col] != null) {
+                    newBoard[row][col] = new Piece(this.board[row][col]);
+                } else {
+                    newBoard[row][col] = null;
                 }
             }
         }
-        return false;
+        return newBoard;
     }
 
-    public int putPiece(int column) {
-        for (int row = 5; row >= 0; row--) {
-            if (this.board[row][column] == null) {
-                this.board[row][column] = this.currentPlayer.getPiece();
-                return row;
-            }
-        }
-        throw new IllegalArgumentException("Feil i put piece metoden, fungerte ikke å legge brikke");
-    }
-
-    public boolean hasLegalMoves() {
-        for (int collumn = 0; collumn < 7; collumn++) {
-            if (board[0][collumn] == null) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public void switchPlayer() {
-        Player temp = currentPlayer;
-        currentPlayer = otherPlayer;
-        otherPlayer = temp;
-    }
 
     public void PrintBoard() {
         for (int i = 0; i < 6; i++) {
@@ -190,12 +190,11 @@ public class FirePaaRadEnv implements Cloneable, FirePaaRadInterface {
 
         while (true) {
             env.PrintBoard();
-            int row, column;
+            int column;
 
             while (true) {
                 System.out.println("Input a valid integer for rows");
                 if (scanner.hasNextInt()) {
-                    row = scanner.nextInt();
                     break;
                 } else {
                     System.out.println("That's not a valid number. Please enter an integer.");
