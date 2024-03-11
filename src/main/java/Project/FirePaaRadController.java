@@ -174,9 +174,6 @@ public class FirePaaRadController implements Initializable {
     }
     
 
-    
-
-
     @FXML
     public void putPiece(ActionEvent event) {
         Button clickedButton = (Button) event.getSource();
