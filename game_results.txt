@@ -1,2 +1,3 @@
-Winner: Peter Wins: 8
-Winner: Thomas  Wins: 7
+Winner: Thomas Wins: 8
+Winner: Geir Wins: 2
+Winner: Peter Wins: 1

@@ -9,6 +9,11 @@ public class Winner {
         this.name = name;
     }
 
+    public Winner(String name, int wins) {
+        this.wins = wins;
+        this.name = name;
+    }
+
     public int getWins() {
         return wins;
     }
