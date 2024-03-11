@@ -1,8 +1,5 @@
 package project;
 
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -57,6 +54,8 @@ public class FirePaaRadController implements Initializable {
     private GridPane buttonGrid;
 
     private Map<String, Circle> circleMap = new HashMap<>();
+
+    public Leaderboard leaderboard = new Leaderboard();
 
     private FirePaaRadEnv firePaaRad;
 
@@ -165,7 +164,8 @@ public class FirePaaRadController implements Initializable {
                     // System.out.println("Currentplayer: " + env.getCurrentPlayer().toString());
                     // System.out.println("Otherplayer: " + env.getOtherPlayer().toString());
                     // System.out.println("Vinner: " + env.getResult().toString());
-                    saveGameResult(env.getResult().toString());
+                    
+                    leaderboard.saveGame(env.getResult().toString());
                     disableButtons();
                     return true;
                 }
@@ -173,14 +173,8 @@ public class FirePaaRadController implements Initializable {
         return false;
     }
 
-    public void saveGameResult(String winnerName) {
-    try (PrintWriter out = new PrintWriter(new FileWriter("game_results.txt", true))) {
-        out.println("Winner: " + winnerName + " - Played on: " + java.time.LocalDateTime.now());
-    } catch (IOException e) {
-        System.out.println("An error occurred while trying to save the game result.");
-        e.printStackTrace();
-    }
-}
+    
+
 
     @FXML
     public void putPiece(ActionEvent event) {
