@@ -14,9 +14,12 @@ import java.util.List;
 public class Leaderboard {
     List<Winner> unsortedWinners = new ArrayList<>();
 
-
     public Leaderboard() {
         importLeaderboard();
+    }
+
+    public List<Winner> getWinners() {
+        return unsortedWinners;
     }
 
     public void importLeaderboard() {
@@ -24,8 +27,8 @@ public class Leaderboard {
         try {
             List<String> lines = Files.readAllLines(Paths.get(filePath));
             for (String line : lines) {
-                String[] lineSplit = line.split("\\s+"); 
-                if (lineSplit.length >= 4) { 
+                String[] lineSplit = line.split("\\s+");
+                if (lineSplit.length >= 4) {
                     String name = lineSplit[1];
                     int score;
                     try {
@@ -44,6 +47,21 @@ public class Leaderboard {
         }
     }
 
+    public String getText() {
+    String filePath = "./game_results.txt";
+    String text = "";
+    try {
+        List<String> lines = Files.readAllLines(Paths.get(filePath));
+        for (String line : lines) {
+            text += line;
+        }
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+    return text;    
+    }
+
+
     public void saveGame(String name) {
         boolean found = false;
         for (Winner w : unsortedWinners) {
@@ -54,10 +72,10 @@ public class Leaderboard {
             }
         }
         if (!found) {
-            Winner newWinner = new Winner(name, 1); 
+            Winner newWinner = new Winner(name, 1);
             unsortedWinners.add(newWinner);
         }
-        List<Winner> sortedWinners = sortWinners(new ArrayList<>(unsortedWinners)); 
+        List<Winner> sortedWinners = sortWinners(new ArrayList<>(unsortedWinners));
         printResults(sortedWinners);
     }
 

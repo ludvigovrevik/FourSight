@@ -25,7 +25,6 @@ public class FirePaaRadEnv implements Cloneable, FirePaaRadInterface {
 
     public boolean isLegalMove(int column) {
         for (int row = 5; row >= 0; row--) {
-            // Check if the top piece of this column is null (i.e., column is not full)
             if (board[row][column] == null) {
                 return true;
             }

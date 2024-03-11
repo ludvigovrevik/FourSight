@@ -13,6 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
@@ -55,17 +56,16 @@ public class FirePaaRadController implements Initializable {
 
     private Map<String, Circle> circleMap = new HashMap<>();
 
-    public Leaderboard leaderboard = new Leaderboard();
+    public Leaderboard leaderBoard = new Leaderboard();
+
+    @FXML
+    private Text leaderboard;
 
     private FirePaaRadEnv firePaaRad;
 
     private String p1, p2;
 
     private MCTS mcts;
-
-    public void initGame() {
-        disableButtons();
-    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -82,16 +82,11 @@ public class FirePaaRadController implements Initializable {
                 circleMap.put(key, circles.get(k++));
             }
         }
-        initGame();
     }
 
     @FXML
-    public void playAI() {
-        
-        resetGame();
-        System.out.println("P1 Text felt: " + player1.getText());
-        System.out.println("P2 Text felt: " + player2.getText());
-        this.p1 = player1.getText();
+    public void playAI(String player1) {
+        this.p1 = player1;
         this.p2 = "AI";
         firePaaRad = new FirePaaRadEnv(p1, p2);
         mcts = new MCTS();
@@ -99,13 +94,11 @@ public class FirePaaRadController implements Initializable {
     }
 
     @FXML
-    public void enableGame() {
+    public void enableGame(String p1, String p2) {
         resetGame();
         mcts = null;
-        System.out.println("P1 Text felt: " + player1.getText());
-        System.out.println("P2 Text felt: " + player2.getText());
-        this.p1 = player1.getText();
-        this.p2 = player2.getText();
+        this.p1 = p1;
+        this.p2 = p2;
         firePaaRad = new FirePaaRadEnv(p1, p2);
         resetButtonsText();
     }
@@ -120,7 +113,6 @@ public class FirePaaRadController implements Initializable {
                 changeCircleColor(row, col, Color.WHITE);
             }
         }
-
     }
 
     @FXML
@@ -152,33 +144,31 @@ public class FirePaaRadController implements Initializable {
     }
 
     public boolean isTerminal(FirePaaRadEnv env) {
-            if (env.isWinner()) {
-                if (env.getResult() == null) {
-                    System.out.println("It's a tie");
-                    disableButtons();
-                    return true;
-                } else {
-                    this.result.setText((env.getResult().toString()) + " vant!");
-                    // System.out.println("Spiller 1: " + p1);
-                    // System.out.println("Spiller 2: " + p2);
-                    // System.out.println("Currentplayer: " + env.getCurrentPlayer().toString());
-                    // System.out.println("Otherplayer: " + env.getOtherPlayer().toString());
-                    // System.out.println("Vinner: " + env.getResult().toString());
-                    
-                    leaderboard.saveGame(env.getResult().toString());
-                    disableButtons();
-                    return true;
+        if (env.isWinner()) {
+            if (env.getResult() == null) {
+                System.out.println("It's a tie");
+                disableButtons();
+                return true;
+            } else {
+                this.result.setText((env.getResult().toString()) + " vant!");
+                leaderBoard.saveGame(env.getResult().toString());
+                StringBuilder sb = new StringBuilder();
+                for (Winner winner : leaderBoard.sortWinners(leaderBoard.getWinners())) {
+                    sb.append("Winner: ").append(winner.getName()).append(" Wins: ").append(winner.getWins()).append("\n");
                 }
+                leaderboard.setText(sb.toString());
+                disableButtons();
+                return true;
+            }
         }
         return false;
     }
-    
 
     @FXML
     public void putPiece(ActionEvent event) {
         Button clickedButton = (Button) event.getSource();
         String buttonId = clickedButton.getId();
-        int column = Character.getNumericValue(buttonId.charAt(6)); 
+        int column = Character.getNumericValue(buttonId.charAt(6));
 
         if (firePaaRad.isLegalMove(column)) {
             int row = firePaaRad.putPiece(column);
@@ -188,7 +178,7 @@ public class FirePaaRadController implements Initializable {
                 changeCircleColor(row, column, Color.YELLOW);
             }
             firePaaRad.PrintBoard();
-            
+
             if (isTerminal(firePaaRad)) {
                 return;
             }
@@ -204,7 +194,7 @@ public class FirePaaRadController implements Initializable {
                 } else {
                     changeCircleColor(row, bestAction, Color.YELLOW);
                 }
-                
+
                 if (isTerminal(firePaaRad)) {
                     return;
                 }

@@ -3,6 +3,7 @@ package project;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -15,8 +16,11 @@ public class FirePaaRadApp extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        primaryStage.setTitle("Example App");
-        primaryStage.setScene(new Scene(FXMLLoader.load(getClass().getResource("FirePaaRadApp.fxml"))));
+        primaryStage.setTitle("Fire på rad");
+        primaryStage.setScene(new Scene(FXMLLoader.load(getClass().getResource("FrontPage.fxml"))));
+        
+        Image applicationIcon = new Image(getClass().getResourceAsStream("icon.png"));
+        primaryStage.getIcons().add(applicationIcon);
         primaryStage.show();
     }
 

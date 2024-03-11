@@ -62,8 +62,6 @@ public class MCTS {
         return simulationState.getResult(current);
     }
 
-    // result is should be the same as I would get with this method in python return
-    // simulation_state.returns()[(node.state.current_player() + 1) & 1]
     public void backpropagate(Node node, int result) {
         // System.out.println("Backpropagating node");
         node.addVisits();
