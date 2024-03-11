@@ -81,13 +81,13 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button fx:id="button0" mnemonicParsing="false" style="-fx-background-color: black;" text=" " onAction="#putPiece"/>
-                  <Button fx:id="button1" mnemonicParsing="false" style="-fx-background-color: black;" text=" " onAction="#putPiece" GridPane.columnIndex="1" />
-                  <Button fx:id="button2" mnemonicParsing="false" style="-fx-background-color: black;" text=" " onAction="#putPiece" GridPane.columnIndex="2" />
-                  <Button fx:id="button3" mnemonicParsing="false" style="-fx-background-color: black;" text=" " onAction="#putPiece" GridPane.columnIndex="3" />
-                  <Button fx:id="button4" mnemonicParsing="false" style="-fx-background-color: black;" text=" " onAction="#putPiece" GridPane.columnIndex="4" />
-                  <Button fx:id="button5" mnemonicParsing="false" style="-fx-background-color: black;" text=" " onAction="#putPiece" GridPane.columnIndex="5" />
-                  <Button fx:id="button6" mnemonicParsing="false" style="-fx-background-color: black;" text=" " onAction="#putPiece" GridPane.columnIndex="6" />
+                  <Button fx:id="button0" mnemonicParsing="false" onAction="#putPiece" style="-fx-background-color: black;" text=" " />
+                  <Button fx:id="button1" mnemonicParsing="false" onAction="#putPiece" style="-fx-background-color: black;" text=" " GridPane.columnIndex="1" />
+                  <Button fx:id="button2" mnemonicParsing="false" onAction="#putPiece" style="-fx-background-color: black;" text=" " GridPane.columnIndex="2" />
+                  <Button fx:id="button3" mnemonicParsing="false" onAction="#putPiece" style="-fx-background-color: black;" text=" " GridPane.columnIndex="3" />
+                  <Button fx:id="button4" mnemonicParsing="false" onAction="#putPiece" style="-fx-background-color: black;" text=" " GridPane.columnIndex="4" />
+                  <Button fx:id="button5" mnemonicParsing="false" onAction="#putPiece" style="-fx-background-color: black;" text=" " GridPane.columnIndex="5" />
+                  <Button fx:id="button6" mnemonicParsing="false" onAction="#putPiece" style="-fx-background-color: black;" text=" " GridPane.columnIndex="6" />
                   <Circle fx:id="button00" fill="WHITE" radius="10.0" stroke="BLACK" strokeType="INSIDE" GridPane.rowIndex="1" />
                   <Circle fx:id="button01" fill="WHITE" radius="10.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <Circle fx:id="button02" fill="WHITE" radius="10.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnIndex="2" GridPane.rowIndex="1" />
@@ -145,6 +145,7 @@
             <Button fx:id="Ok" layoutX="32.0" layoutY="173.0" mnemonicParsing="false" onAction="#enableGame" text="Start spill!" />
             <Button fx:id="aiButton" layoutX="32.0" layoutY="327.0" mnemonicParsing="false" onAction="#playAI" text="Spill mot AI!" />
             <Label layoutX="174.0" layoutY="84.0" text="Velg kolonne " />
+            <Button fx:id="1v1Button" layoutX="31.0" layoutY="281.0" mnemonicParsing="false" text="Spill 1 mot 1" />
       </children>
     </AnchorPane>
   </children>
