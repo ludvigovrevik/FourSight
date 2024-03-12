@@ -157,11 +157,15 @@ public class GameState implements Cloneable, FirePaaRadInterface {
     public boolean checkLeftDiagonal() {
         for (int row = 0; row < 3; row++) {
             for (int col = 3; col < 7; col++) {
-                if (board[row][col] != null &&
-                        board[row][col].equals(board[row + 1][col - 1]) &&
-                        board[row][col].equals(board[row + 2][col - 2]) &&
-                        board[row][col].equals(board[row + 3][col - 3])) {
+                try {
+                    if (board[row][col] != null &&
+                        board[row][col].getColor().equals(board[row + 1][col - 1].getColor()) && 
+                        board[row][col].getColor().equals(board[row + 2][col - 2].getColor()) &&
+                        board[row][col].getColor().equals(board[row + 3][col - 3].getColor())) {
                     return true;
+                        } 
+                } catch (NullPointerException e) {
+                    continue;
                 }
             }
         }
@@ -172,14 +176,17 @@ public class GameState implements Cloneable, FirePaaRadInterface {
     public boolean checkRightDiagonal() {
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 4; col++) {
+            try {
                 if (board[row][col] != null &&
-                        board[row][col].equals(board[row + 1][col + 1]) &&
-                        board[row][col].equals(board[row + 2][col + 2]) &&
-                        board[row][col].equals(board[row + 3][col + 3])) {
+                        board[row][col].getColor().equals(board[row + 1][col + 1].getColor()) &&
+                        board[row][col].getColor().equals(board[row + 2][col + 2].getColor()) &&
+                        board[row][col].getColor().equals(board[row + 3][col + 3].getColor())) 
                     return true;
+                } catch (NullPointerException e) {
+                    continue;
+                    }
                 }
             }
-        }
         return false;
     }
 
