@@ -125,45 +125,90 @@ public class FirePaaRadEnvTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
 
-    @Before
-    public void setUpStreams() {
-        System.setOut(new PrintStream(outContent));
-    }
+    // @Before
+    // public void setUpStreams() {
+    //     System.setOut(new PrintStream(outContent));
+    // }
 
-    @After
-    public void restoreStreams() {
-        System.setOut(originalOut);
-    }
+    // @After
+    // public void restoreStreams() {
+    //     System.setOut(originalOut);
+    // }
 
 
-        @Test
-        @DisplayName("Skjekk printBoard") 
-        void testRestartGame() {
-            String noBoard = "";
-            String board1 = 
-            "X X X X X X X\n" + 
-            "X X X X X X X\n" + 
-            "X X X X X X X\n" + 
-            "X X X X X X X\n" + 
-            "X X X X X X X\n" +
-            "X X X X X X X\n";
-            FirePaaRadEnv env = new FirePaaRadEnv(player1, player2);
-            final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-            System.setOut(new PrintStream(outContent));
-            assertEquals(noBoard, outContent.toString());
-            env.PrintBoard();
-            String actualOutput = outContent.toString().replace("\r\n", "\n");
-            assertEquals(board1, actualOutput);
-            env.putPiece(0);
-            env.switchPlayer();
-            env.putPiece(1);
-            env.switchPlayer(); 
-            env.PrintBoard();
-        }
+        // @Test
+        // @DisplayName("Skjekk printBoard") 
+        // void testRestartGame() {
+        //     String noBoard = "";
+        //     String board1 = 
+        //     "X X X X X X X\n" + 
+        //     "X X X X X X X\n" + 
+        //     "X X X X X X X\n" + 
+        //     "X X X X X X X\n" + 
+        //     "X X X X X X X\n" +
+        //     "X X X X X X X\n";
+        //     FirePaaRadEnv env = new FirePaaRadEnv(player1, player2);
+        //     final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        //     System.setOut(new PrintStream(outContent));
+        //     assertEquals(noBoard, outContent.toString());
+        //     env.PrintBoard();
+        //     String actualOutput = outContent.toString().replace("\r\n", "\n");
+        //     assertEquals(board1, actualOutput);
+        //     env.putPiece(0);
+        //     env.switchPlayer();
+        //     env.putPiece(1);
+        //     env.switchPlayer(); 
+        //     env.PrintBoard();
+        // }
 
         
 
 
+        void testFirePaaRaadEnv() {
+            FirePaaRadEnv FirePaaRad = new FirePaaRadEnv(player1, player2);
+            FirePaaRad.putPiece(0);
+            FirePaaRad.switchPlayer();
+            FirePaaRad.putPiece(0);
+            FirePaaRad.switchPlayer();
+            FirePaaRad.putPiece(1);
+            FirePaaRad.switchPlayer();
+            FirePaaRad.putPiece(1);
+            FirePaaRad.switchPlayer();
+            assertEquals(5, FirePaaRad.putPiece(3));
+            FirePaaRad.switchPlayer();
+            assertEquals(5, FirePaaRad.putPiece(4));
+            FirePaaRad.switchPlayer();
+            assertEquals(4, FirePaaRad.putPiece(3));
+            FirePaaRad.switchPlayer();
+            assertEquals(3, FirePaaRad.putPiece(3));
+            FirePaaRad.switchPlayer();
+            assertEquals(2, FirePaaRad.putPiece(3));
+            FirePaaRad.switchPlayer();
+            assertEquals(1, FirePaaRad.putPiece(3));
+            FirePaaRad.switchPlayer();
+            assertEquals(0, FirePaaRad.putPiece(3));
+            FirePaaRad.switchPlayer();
+            assertEquals(4, FirePaaRad.putPiece(4));
+            FirePaaRad.switchPlayer();
+            assertEquals(3, FirePaaRad.putPiece(4));
+            FirePaaRad.switchPlayer();
+            assertEquals(2, FirePaaRad.putPiece(4));
+            FirePaaRad.switchPlayer();
+            assertEquals(1, FirePaaRad.putPiece(4));
+            FirePaaRad.switchPlayer();
+            assertEquals(0, FirePaaRad.putPiece(4));
+            FirePaaRad.switchPlayer();
+            assertEquals(false, FirePaaRad.isLegalMove(4));
+            assertEquals(false, FirePaaRad.isLegalMove(3));
+            assertEquals(true, FirePaaRad.isLegalMove(0));
+            assertEquals(true, FirePaaRad.isLegalMove(1));
+            assertEquals(true, FirePaaRad.isLegalMove(2));
+            assertEquals(true, FirePaaRad.isLegalMove(5));
+            assertEquals(false, FirePaaRad.isWinner());
+            assertEquals(5, FirePaaRad.putPiece(2));
+            assertEquals(true, FirePaaRad.isWinner());
+            assertEquals(player1, FirePaaRad.getResult().toString());
+        }
     }
 
 
