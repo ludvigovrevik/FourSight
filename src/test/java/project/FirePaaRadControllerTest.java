@@ -5,8 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
 public class FirePaaRadControllerTest {
-    String player1 = "Thomas";
+        String player1 = "Thomas";
         String player2 = "Ludde";
+        FirePaaRadController controller = new FirePaaRadController();
 
         @Test
         public void testConstructor() {
@@ -17,7 +18,7 @@ public class FirePaaRadControllerTest {
     
         @Test
         void testFirePaaRaadController() {
-            
+            controller.playAI("player1");
             
     
         }

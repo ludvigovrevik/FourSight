@@ -79,7 +79,7 @@ public class MCTS {
 
     public int runSimulation(GameState state) {
         Node root_node = new Node(null, state, -1);
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 10000; i++) {
             int winner = 0;
             Node node = this.select(root_node); // selects the node with the highest UCB value
             if (!node.getState().isTerminal() && !node.hasChildren()) { // if the node is a leafnode
@@ -108,8 +108,25 @@ public class MCTS {
         MCTS mcts = new MCTS();
         GameState initialState = new GameState(firePaaRad);
 
-        int bestAction = mcts.runSimulation(initialState);
-        System.out.println("Best action is: " + bestAction);
-        firePaaRad.putPiece(bestAction);
+        // int bestAction = mcts.runSimulation(initialState);
+        // System.out.println("Best action is: " + bestAction);
+        // firePaaRad.putPiece(bestAction);
+
+    
+        firePaaRad.putPiece(0);
+        firePaaRad.putPiece(1);
+        firePaaRad.putPiece(1);
+        firePaaRad.putPiece(2);
+        firePaaRad.putPiece(2);
+        firePaaRad.PrintBoard();
+        // firePaaRad.putPiece(3);
+        // firePaaRad.putPiece(2);
+        // firePaaRad.putPiece(3);
+        // firePaaRad.putPiece(3);
+        // firePaaRad.putPiece(0);
+        GameState state = new GameState(firePaaRad);
+        int action = mcts.runSimulation(state);
+        System.out.println(action);
     }
 }
+
