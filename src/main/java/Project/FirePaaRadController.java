@@ -13,7 +13,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
@@ -95,11 +94,10 @@ public class FirePaaRadController implements Initializable {
 
     @FXML
     public void enableGame(String p1, String p2) {
-        resetGame();
         mcts = null;
         this.p1 = p1;
         this.p2 = p2;
-        firePaaRad = new FirePaaRadEnv(p1, p2);
+        resetGame();
         resetButtonsText();
     }
 
@@ -107,7 +105,7 @@ public class FirePaaRadController implements Initializable {
     public void resetGame() {
         resetButtonsText();
         this.result.setText("New game started");
-        firePaaRad = new FirePaaRadEnv(p1, p2);
+        firePaaRad = new FirePaaRadEnv(this.p1, this.p2);
         for (int row = 0; row < 6; row++) {
             for (int col = 0; col < 7; col++) {
                 changeCircleColor(row, col, Color.WHITE);

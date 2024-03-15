@@ -1,6 +1,6 @@
-Winner: AI Wins: 26
-Winner: Thomas Wins: 8
-Winner: 1 Wins: 8
+Winner: AI Wins: 38
+Winner: 1 Wins: 13
+Winner: Thomas Wins: 11
 Winner: Geir Wins: 2
 Winner: d Wins: 2
 Winner: Peter Wins: 1
@@ -9,3 +9,4 @@ Winner: dw Wins: 1
 Winner: ludde Wins: 1
 Winner: s Wins: 1
 Winner: kristian Wins: 1
+Winner: t Wins: 1

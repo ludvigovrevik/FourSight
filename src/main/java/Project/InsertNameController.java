@@ -66,7 +66,7 @@ public class InsertNameController implements Initializable {
             controller.initialize(null, null);
             if (playAI) {
                 controller.playAI(player1.getText());
-            } else {
+            } else { 
                 controller.enableGame(player1.getText(), player2.getText());
             }
             Scene nextScene = new Scene(nextSceneRoot);

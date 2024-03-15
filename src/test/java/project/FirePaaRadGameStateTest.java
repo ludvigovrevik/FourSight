@@ -16,7 +16,7 @@ public class FirePaaRadGameStateTest {
         }
     
         @Test
-        void testFirePaaRaad() {
+        void testGameState() {
             
             
     

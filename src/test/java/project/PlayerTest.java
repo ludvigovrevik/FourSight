@@ -16,7 +16,7 @@ public class PlayerTest {
         }
     
         @Test
-        void testFirePaaRaad() {
+        void testPlayer() {
             
             
     

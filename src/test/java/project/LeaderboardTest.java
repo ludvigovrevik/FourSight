@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-public class FirePaaRadControllerTest {
+public class LeaderboardTest {
     String player1 = "Thomas";
         String player2 = "Ludde";
 
@@ -16,10 +16,9 @@ public class FirePaaRadControllerTest {
         }
     
         @Test
-        void testFirePaaRaadController() {
+        void testLeaderboard() {
             
             
     
         }
-    }
-
+}

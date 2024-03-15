@@ -11,7 +11,7 @@ public class Player {
             piece = new Piece("Y");   
         }
         if (name == null) {
-            System.out.println("her blir det en feil");
+            System.out.println("Name i Player() er " + name);
         }
         this.name = name;
     }

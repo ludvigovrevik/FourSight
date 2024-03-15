@@ -191,15 +191,6 @@ public class FirePaaRadEnv implements Cloneable, FirePaaRadInterface {
             env.PrintBoard();
             int column;
 
-            while (true) {
-                System.out.println("Input a valid integer for rows");
-                if (scanner.hasNextInt()) {
-                    break;
-                } else {
-                    System.out.println("That's not a valid number. Please enter an integer.");
-                    scanner.next(); // Consume the invalid input
-                }
-            }
 
             while (true) {
                 System.out.println("Please enter a valid integer for the column.");
@@ -216,6 +207,7 @@ public class FirePaaRadEnv implements Cloneable, FirePaaRadInterface {
             if (env.isWinner()) {
                 env.PrintBoard();
                 env.getCurrentPlayer();
+                System.out.println(env.getResult());
                 scanner.close();
                 break;
             }

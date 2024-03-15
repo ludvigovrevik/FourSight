@@ -1,6 +1,11 @@
 package project;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 public class FirePaaRadEnvTest {
@@ -9,18 +14,156 @@ public class FirePaaRadEnvTest {
 
         @Test
         public void testConstructor() {
-            FirePaaRadEnv FirePaaRadEnv = new FirePaaRadEnv(player1, player2);
-            assertEquals("Thomas", FirePaaRadEnv.getCurrentPlayer().toString());
-            assertEquals("Ludde", FirePaaRadEnv.getOtherPlayer().toString());
-            assertArrayEquals(new Piece[6][7], FirePaaRadEnv.copyBoard());
+            FirePaaRadEnv env = new FirePaaRadEnv(player1, player2);
+            assertEquals("Thomas", env.getCurrentPlayer().toString());
+            assertEquals("Ludde", env.getOtherPlayer().toString());
+            assertArrayEquals(new Piece[6][7], env.copyBoard());
         }
     
         @Test
-        void testFirePaaRaadEnv() {
-            
-            
-    
+        @DisplayName("Skjekk om det fungerer å bytte spiller")
+        void testSwitchPlayer() {
+            FirePaaRadEnv env = new FirePaaRadEnv(player1, player2);
+            env.putPiece(0);
+            env.switchPlayer();
+            assertEquals("Ludde", env.getCurrentPlayer().toString());
         }
+
+        @Test
+        @DisplayName("Skjekk at den skjekker diagonal")
+        void testDiagonal() {
+                FirePaaRadEnv env = new FirePaaRadEnv(player1, player2);
+                env.putPiece(0);
+                env.switchPlayer();
+                env.putPiece(1);
+                env.switchPlayer(); 
+                env.putPiece(1);
+                env.switchPlayer();
+                env.putPiece(2);
+                env.switchPlayer(); 
+                env.putPiece(2);
+                env.switchPlayer();
+                env.putPiece(3);
+                env.switchPlayer(); 
+                env.putPiece(2); 
+                env.switchPlayer(); 
+                env.putPiece(3); 
+                env.switchPlayer(); 
+                env.putPiece(3);  
+                env.switchPlayer(); 
+                env.putPiece(4);
+                env.switchPlayer(); 
+                assertFalse(env.checkLeftDiagonal());
+                env.putPiece(3);
+                assertTrue(env.checkLeftDiagonal());
+                assertFalse(env.checkRightDiagonal());   
+        }
+
+        @Test
+        @DisplayName("Skjekk at den skjekker vertikal")
+        void testVertikal() {
+            FirePaaRadEnv env = new FirePaaRadEnv(player1, player2);
+            env.putPiece(0);
+            env.switchPlayer();
+            env.putPiece(1);
+            env.switchPlayer(); 
+            env.putPiece(0);
+            env.switchPlayer();
+            env.putPiece(1);
+            env.switchPlayer(); 
+            env.putPiece(0);
+            env.switchPlayer();
+            env.putPiece(1);
+            env.switchPlayer(); 
+            assertFalse(env.checkVertical());
+            env.putPiece(0);
+            assertTrue(env.checkVertical());
+        }
+
+        @Test
+        @DisplayName("Skjekk at den skjekker horisontal")
+        void testHorisontal() {
+            FirePaaRadEnv env = new FirePaaRadEnv(player1, player2);
+            env.putPiece(0);
+            env.switchPlayer();
+            env.putPiece(0);
+            env.switchPlayer(); 
+            env.putPiece(1);
+            env.switchPlayer();
+            env.putPiece(1);
+            env.switchPlayer(); 
+            env.putPiece(2);
+            env.switchPlayer();
+            env.putPiece(2);
+            env.switchPlayer(); 
+            assertFalse(env.checkHorizontal());
+            env.putPiece(3);
+            assertTrue(env.checkHorizontal());
+        }
+
+        @Test
+        @DisplayName("Skjekk at riktig person vinner")
+        void testGetResult() {
+            FirePaaRadEnv env = new FirePaaRadEnv(player1, player2);
+            env.putPiece(0);
+            env.switchPlayer();
+            env.putPiece(1);
+            env.switchPlayer(); 
+            env.putPiece(0);
+            env.switchPlayer();
+            env.putPiece(1);
+            env.switchPlayer(); 
+            env.putPiece(0);
+            env.switchPlayer();
+            env.putPiece(1);
+            env.switchPlayer(); 
+            assertNull(env.getResult());
+            env.putPiece(0);
+            assertEquals("Thomas", env.getResult().toString());
+        }
+
+    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    private final PrintStream originalOut = System.out;
+
+    @Before
+    public void setUpStreams() {
+        System.setOut(new PrintStream(outContent));
+    }
+
+    @After
+    public void restoreStreams() {
+        System.setOut(originalOut);
+    }
+
+
+        @Test
+        @DisplayName("Skjekk printBoard") 
+        void testRestartGame() {
+            String noBoard = "";
+            String board1 = 
+            "X X X X X X X\n" + 
+            "X X X X X X X\n" + 
+            "X X X X X X X\n" + 
+            "X X X X X X X\n" + 
+            "X X X X X X X\n" +
+            "X X X X X X X\n";
+            FirePaaRadEnv env = new FirePaaRadEnv(player1, player2);
+            final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+            System.setOut(new PrintStream(outContent));
+            assertEquals(noBoard, outContent.toString());
+            env.PrintBoard();
+            String actualOutput = outContent.toString().replace("\r\n", "\n");
+            assertEquals(board1, actualOutput);
+            env.putPiece(0);
+            env.switchPlayer();
+            env.putPiece(1);
+            env.switchPlayer(); 
+            env.PrintBoard();
+        }
+
+        
+
+
     }
 
 

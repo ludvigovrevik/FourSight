@@ -11,7 +11,6 @@ public class Node {
     private double reward;
     private int visits;
 
-
     public Node(Node parent, GameState state, int action) {
         this.children = new ArrayList<>();
         this.parent = parent;

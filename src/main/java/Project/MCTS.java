@@ -79,11 +79,11 @@ public class MCTS {
 
     public int runSimulation(GameState state) {
         Node root_node = new Node(null, state, -1);
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 1000; i++) {
             int winner = 0;
             Node node = this.select(root_node); // selects the node with the highest UCB value
             if (!node.getState().isTerminal() && !node.hasChildren()) { // if the node is a leafnode
-                this.expand(node); // creates all of its children
+                this.expand(node); // creates all of its childreng
                 // returns the winner of the simulation
                 winner = this.simulate(node);
             } else { // if it's a terminal node or doesn't have children
