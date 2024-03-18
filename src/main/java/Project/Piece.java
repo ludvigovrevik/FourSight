@@ -12,22 +12,23 @@ public class Piece implements Cloneable {
         this.color = pieceToCopy.color;
     }
 
+    
+    public String getColor() {
+        return color;
+    }
+    
     @Override
     public String toString() {
         return color;
     }
-
-    public String getColor() {
-        return color;
-    }
-
+    
     // for deep copying
     @Override
     public Piece clone() {
         try {
             return (Piece) super.clone();
         } catch (CloneNotSupportedException e) {
-            throw new AssertionError(); // Can ignore this if you're sure clone is supported
+            throw new AssertionError();
         }
     }
 }

@@ -183,78 +183,41 @@ public class FirePaaRadEnv implements Cloneable, FirePaaRadInterface {
     }
 
     public static void main(String[] args) {
-        FirePaaRadEnv FirePaaRad = new FirePaaRadEnv("player1", "player2");
-            FirePaaRad.putPiece(0);
-            FirePaaRad.switchPlayer();
-            FirePaaRad.putPiece(0);
-            FirePaaRad.switchPlayer();
-            FirePaaRad.putPiece(1);
-            FirePaaRad.switchPlayer();
-            FirePaaRad.putPiece(1);
-            FirePaaRad.switchPlayer();
-            FirePaaRad.putPiece(3);
-            FirePaaRad.switchPlayer();
-            FirePaaRad.putPiece(4);
-            FirePaaRad.switchPlayer();
-            FirePaaRad.putPiece(3);
-            FirePaaRad.switchPlayer();
-            FirePaaRad.putPiece(3);
-            FirePaaRad.switchPlayer();
-            FirePaaRad.putPiece(3);
-            FirePaaRad.switchPlayer();
-            FirePaaRad.putPiece(3);
-            FirePaaRad.switchPlayer();
-            FirePaaRad.putPiece(3);
-            FirePaaRad.switchPlayer();
-            FirePaaRad.putPiece(4);
-            FirePaaRad.switchPlayer();
-            FirePaaRad.putPiece(4);
-            FirePaaRad.switchPlayer();
-            FirePaaRad.putPiece(4);
-            FirePaaRad.switchPlayer();
-            FirePaaRad.putPiece(4);
-            FirePaaRad.switchPlayer();
-            FirePaaRad.putPiece(4);
-            FirePaaRad.switchPlayer();
-            FirePaaRad.putPiece(2);
-            FirePaaRad.PrintBoard();
-            
+        FirePaaRadEnv env = new FirePaaRadEnv("player1", "player2");
+        Scanner scanner = new Scanner(System.in);
 
-        // FirePaaRadEnv env = new FirePaaRadEnv("Ludvig", "Thomas");
-        // Scanner scanner = new Scanner(System.in);
+        while (true) {
+            env.PrintBoard();
+            int column;
 
-        // while (true) {
-        //     env.PrintBoard();
-        //     int column;
+            while (true) {
+                System.out.println("Input a valid integer for rows");
+                if (scanner.hasNextInt()) {
+                    break;
+                } else {
+                    System.out.println("That's not a valid number. Please enter an integer.");
+                    scanner.next(); // Consume the invalid input
+                }
+            }
 
-        //     while (true) {
-        //         System.out.println("Input a valid integer for rows");
-        //         if (scanner.hasNextInt()) {
-        //             break;
-        //         } else {
-        //             System.out.println("That's not a valid number. Please enter an integer.");
-        //             scanner.next(); // Consume the invalid input
-        //         }
-        //     }
-
-        //     while (true) {
-        //         System.out.println("Please enter a valid integer for the column.");
-        //         if (scanner.hasNextInt()) {
-        //             column = scanner.nextInt();
-        //             break; // Exit the loop once a valid integer is received
-        //         } else {
-        //             System.out.println("That's not a valid number. Please enter an integer.");
-        //             scanner.next(); // Consume the invalid input
-        //         }
-        //     }
-        //     env.putPiece(column - 1);
-        //     env.switchPlayer();
-        //     if (env.isWinner()) {
-        //         env.PrintBoard();
-        //         env.getCurrentPlayer();
-        //         scanner.close();
-        //         break;
-        //     }
-        // }
+            while (true) {
+                System.out.println("Please enter a valid integer for the column.");
+                if (scanner.hasNextInt()) {
+                    column = scanner.nextInt();
+                    break; // Exit the loop once a valid integer is received
+                } else {
+                    System.out.println("That's not a valid number. Please enter an integer.");
+                    scanner.next(); // Consume the invalid input
+                }
+            }
+            env.putPiece(column - 1);
+            env.switchPlayer();
+            if (env.isWinner()) {
+                env.PrintBoard();
+                env.getCurrentPlayer();
+                scanner.close();
+                break;
+            }
+        }
     }
 }
