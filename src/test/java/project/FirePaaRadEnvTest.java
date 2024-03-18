@@ -122,48 +122,60 @@ public class FirePaaRadEnvTest {
             assertEquals("Thomas", env.getResult().toString());
         }
 
-    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-    private final PrintStream originalOut = System.out;
-
-    // @Before
-    // public void setUpStreams() {
-    //     System.setOut(new PrintStream(outContent));
-    // }
-
-    // @After
-    // public void restoreStreams() {
-    //     System.setOut(originalOut);
-    // }
+    
 
 
-        // @Test
-        // @DisplayName("Skjekk printBoard") 
-        // void testRestartGame() {
-        //     String noBoard = "";
-        //     String board1 = 
-        //     "X X X X X X X\n" + 
-        //     "X X X X X X X\n" + 
-        //     "X X X X X X X\n" + 
-        //     "X X X X X X X\n" + 
-        //     "X X X X X X X\n" +
-        //     "X X X X X X X\n";
-        //     FirePaaRadEnv env = new FirePaaRadEnv(player1, player2);
-        //     final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        //     System.setOut(new PrintStream(outContent));
-        //     assertEquals(noBoard, outContent.toString());
-        //     env.PrintBoard();
-        //     String actualOutput = outContent.toString().replace("\r\n", "\n");
-        //     assertEquals(board1, actualOutput);
-        //     env.putPiece(0);
-        //     env.switchPlayer();
-        //     env.putPiece(1);
-        //     env.switchPlayer(); 
-        //     env.PrintBoard();
-        // }
+        @Test
+        @DisplayName("Skjekk printBoard") 
+        void testRestartGame() {
+            String noBoard = "";
+            String board1 = 
+            "X X X X X X X \n" + 
+            "X X X X X X X \n" + 
+            "X X X X X X X \n" + 
+            "X X X X X X X \n" + 
+            "X X X X X X X \n" +
+            "X X X X X X X \n";
+
+            String board2 = 
+            "X X X X X X X \n" + 
+            "X X X X X X X \n" + 
+            "X X X X X X X \n" + 
+            "X X X X X X X \n" + 
+            "X X X X X X X \n" +
+            "X X X X X X X \n" +
+            "X X X X X X X \n" + 
+            "X X X X X X X \n" + 
+            "X X X X X X X \n" + 
+            "X X X X X X X \n" + 
+            "X X X X X X X \n" +
+            "R Y X X X X X \n";
+
+            
+            FirePaaRadEnv env = new FirePaaRadEnv(player1, player2);
+
+            final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+            System.setOut(new PrintStream(outContent));
+
+            assertEquals(noBoard, outContent.toString());
+
+            env.PrintBoard();
+
+            String actualOutput = outContent.toString().replace("\r\n", "\n").trim();
+            assertEquals(board1.trim(), actualOutput);
+            env.putPiece(0);
+            env.switchPlayer();
+            env.putPiece(1);
+            env.switchPlayer();
+            env.PrintBoard();
+            assertEquals(board2.trim(), outContent.toString().replace("\r\n", "\n").trim());
+            
+        }
 
         
 
-
+        @Test
+        @DisplayName("Tester isLegalMove")
         void testFirePaaRaadEnv() {
             FirePaaRadEnv FirePaaRad = new FirePaaRadEnv(player1, player2);
             FirePaaRad.putPiece(0);
