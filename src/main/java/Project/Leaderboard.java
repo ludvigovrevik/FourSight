@@ -13,8 +13,15 @@ import java.util.List;
 
 public class Leaderboard {
     List<Winner> unsortedWinners = new ArrayList<>();
+    String filePath;
 
     public Leaderboard() {
+        this.filePath = "./game_results.txt";
+        importLeaderboard();
+    }
+
+    public Leaderboard(String filePath) {
+        this.filePath = filePath;
         importLeaderboard();
     }
 
@@ -23,35 +30,29 @@ public class Leaderboard {
     }
 
     public void importLeaderboard() {
-        String filePath = "./game_results.txt";
         try {
-            List<String> lines = Files.readAllLines(Paths.get(filePath));
-            for (String line : lines) {
-                String[] lineSplit = line.split("\\s+");
-                if (lineSplit.length >= 4) {
+            Files.readAllLines(Paths.get(this.filePath))
+            .stream()
+            .map(line -> line.split("\\s+"))
+            .filter(lineSplit -> lineSplit.length >= 4)
+            .forEach(lineSplit -> {
+                try {
                     String name = lineSplit[1];
-                    int score;
-                    try {
-                        score = Integer.parseInt(lineSplit[3]);
-                    } catch (NumberFormatException e) {
-                        System.err.println("Invalid score format for " + Arrays.toString(lineSplit));
-                        continue;
-                    }
-                    Winner newWinner = new Winner(name);
-                    newWinner.setWins(score);
-                    unsortedWinners.add(newWinner);
+                    int score = Integer.parseInt(lineSplit[3]); 
+                    unsortedWinners.add(new Winner(name, score)); 
+                } catch (NumberFormatException e) {
+                    System.err.println("Invalid score format for " + Arrays.toString(lineSplit));
                 }
-            }
+            });
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public String getText() {
-    String filePath = "./game_results.txt";
     String text = "";
     try {
-        List<String> lines = Files.readAllLines(Paths.get(filePath));
+        List<String> lines = Files.readAllLines(Paths.get(this.filePath));
         for (String line : lines) {
             text += line;
         }
@@ -85,12 +86,12 @@ public class Leaderboard {
     }
 
     public void printResults(List<Winner> sortedWinners) {
-        try (PrintWriter out = new PrintWriter(new FileWriter("./game_results.txt", false))) {
+        try (PrintWriter out = new PrintWriter(new FileWriter(this.filePath, false))) {
             for (Winner winner : sortedWinners) {
                 out.println("Winner: " + winner.getName() + " Wins: " + winner.getWins());
             }
         } catch (IOException e) {
-            System.out.println("An error occurred while trying to save the game result.");
+            System.out.println("Could not print results to file");
             e.printStackTrace();
         }
     }

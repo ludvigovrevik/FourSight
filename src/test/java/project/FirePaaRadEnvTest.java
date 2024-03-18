@@ -122,8 +122,7 @@ public class FirePaaRadEnvTest {
             assertEquals("Thomas", env.getResult().toString());
         }
 
-    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-    private final PrintStream originalOut = System.out;
+    
 
 
         @Test
