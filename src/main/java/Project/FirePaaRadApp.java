@@ -17,9 +17,9 @@ public class FirePaaRadApp extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         primaryStage.setTitle("Fire på rad");
-        primaryStage.setScene(new Scene(FXMLLoader.load(getClass().getResource("FrontPage.fxml"))));
+        primaryStage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/project/FrontPage.fxml"))));
         
-        Image applicationIcon = new Image(getClass().getResourceAsStream("icon.png"));
+        Image applicationIcon = new Image(getClass().getResourceAsStream("/project/icon.png"));
         primaryStage.getIcons().add(applicationIcon);
         primaryStage.show();
     }
