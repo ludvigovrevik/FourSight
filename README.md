@@ -1,7 +1,9 @@
 # Connect four - JavaFX Application
 
-## Play against our Monte carlo tree search algorithm!
-  <img src="/docs/four_in_a_row.gif" width="400"> 
+## Watch me loose against Monte Carlo Tree Search
+<div align="center">
+  <img src="/docs/four_in_a_row.gif" width="80%" alt="Loosing against the algorithm"> 
+  <div\>
 
 ## Overview
 A small project created by **Thomas Sørensen** and **Ludvig Øvrevik** during our first year at **NTNU Trondheim**.
