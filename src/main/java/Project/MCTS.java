@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
 
 public class MCTS {
     private double c;
@@ -79,7 +80,7 @@ public class MCTS {
 
     public int runSimulation(GameState state) {
         Node root_node = new Node(null, state, -1);
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 10000; i++) {
             int winner = 0;
             Node node = this.select(root_node); // selects the node with the highest UCB value
             if (!node.getState().isTerminal() && !node.hasChildren()) { // if the node is a leafnode
@@ -106,27 +107,17 @@ public class MCTS {
     public static void main(String[] args) {
         FirePaaRadEnv firePaaRad = new FirePaaRadEnv("Ludvig", "Thomas");
         MCTS mcts = new MCTS();
-        GameState initialState = new GameState(firePaaRad);
-
-        // int bestAction = mcts.runSimulation(initialState);
-        // System.out.println("Best action is: " + bestAction);
-        // firePaaRad.putPiece(bestAction);
-
-    
-        firePaaRad.putPiece(0);
-        firePaaRad.putPiece(1);
-        firePaaRad.putPiece(1);
-        firePaaRad.putPiece(2);
-        firePaaRad.putPiece(2);
-        firePaaRad.PrintBoard();
-        // firePaaRad.putPiece(3);
-        // firePaaRad.putPiece(2);
-        // firePaaRad.putPiece(3);
-        // firePaaRad.putPiece(3);
-        // firePaaRad.putPiece(0);
-        GameState state = new GameState(firePaaRad);
-        int action = mcts.runSimulation(state);
-        System.out.println(action);
+        while (true){
+            GameState initialState = new GameState(firePaaRad);
+            int action = mcts.runSimulation(initialState);
+            firePaaRad.putPiece(action);
+            firePaaRad.switchPlayer();
+            firePaaRad.PrintBoard();
+            if (firePaaRad.isWinner()) {
+                System.out.println(firePaaRad.getCurrentPlayer());
+                break;
+            }
+        }
     }
 }
 

@@ -1,5 +1,7 @@
 package project;
 
+import java.util.Scanner;
+
 public class FirePaaRadEnv implements Cloneable, FirePaaRadInterface {
     private Piece[][] board;
     private Player p1, p2;
